@@ -1,0 +1,45 @@
+generator client {
+  provider = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl", "linux-musl-arm64-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Pet {
+  id        String   @id @default(uuid())
+  name      String
+  type      String   // dog, cat, fish, etc.
+  breed     String?
+  dob       DateTime?
+  weight    Float?   // in kg
+  imageUrl  String?
+  createdAt DateTime @default(now())
+
+  inventory         Inventory[]
+  healthSchedules   HealthSchedule[]
+}
+
+model Inventory {
+  id                String   @id @default(uuid())
+  petId             String
+  foodName          String
+  totalWeightGrams  Float    // Total food weight in grams
+  dailyPortionGrams Float    // Daily portion in grams
+  lastUpdatedDate   DateTime @default(now())
+  
+  pet               Pet      @relation(fields: [petId], references: [id])
+}
+
+model HealthSchedule {
+  id          String   @id @default(uuid())
+  petId       String
+  eventType   String   // vaccine, water_change, deworm
+  eventName   String
+  lastDate    DateTime?
+  nextDueDate DateTime
+
+  pet         Pet      @relation(fields: [petId], references: [id])
+}
