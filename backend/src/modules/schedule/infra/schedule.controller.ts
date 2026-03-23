@@ -43,8 +43,12 @@ export class ScheduleController {
 
   async getByPet(req: Request, res: Response) {
     try {
+      const petId = Array.isArray(req.params.petId)
+        ? req.params.petId[0]
+        : req.params.petId;
+
       const schedules = await prisma.healthSchedule.findMany({
-        where: { petId: req.params.petId },
+        where: { petId },
         orderBy: { nextDueDate: 'asc' }
       });
       res.json(schedules);

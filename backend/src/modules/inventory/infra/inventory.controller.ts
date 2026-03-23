@@ -16,8 +16,12 @@ export class InventoryController {
 
   async getByPet(req: Request, res: Response) {
     try {
+      const petId = Array.isArray(req.params.petId)
+        ? req.params.petId[0]
+        : req.params.petId;
+
       const inventories = await prisma.inventory.findMany({
-        where: { petId: req.params.petId },
+        where: { petId },
       });
       
       const enrichedInventories = inventories.map(inv => {
@@ -41,9 +45,12 @@ export class InventoryController {
 
   async update(req: Request, res: Response) {
     try {
+      const inventoryId = Array.isArray(req.params.id)
+        ? req.params.id[0]
+        : req.params.id;
       const { foodName, totalWeightGrams, dailyPortionGrams } = req.body;
       const updated = await prisma.inventory.update({
-        where: { id: req.params.id },
+        where: { id: inventoryId },
         data: {
           foodName, 
           totalWeightGrams, 

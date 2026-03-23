@@ -2,11 +2,10 @@ import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react
 import { PawPrint, PackageOpen, CalendarClock, Home } from 'lucide-react';
 import React from 'react';
 
-// Placeholder Pages
 const Dashboard = React.lazy(() => import('./pages/Dashboard'));
-const PetsList = () => <div className="p-8"><h1>Thú Cưng</h1></div>;
-const Inventory = () => <div className="p-8"><h1>Kho Thức Ăn</h1></div>;
-const Schedule = () => <div className="p-8"><h1>Lịch Trình</h1></div>;
+const PetsPage = React.lazy(() => import('./pages/PetsPage'));
+const InventoryPage = React.lazy(() => import('./pages/InventoryPage'));
+const SchedulesPage = React.lazy(() => import('./pages/SchedulesPage'));
 
 function App() {
   return (
@@ -52,9 +51,9 @@ function App() {
              <React.Suspense fallback={<div className="p-8">Loading...</div>}>
                <Routes>
                 <Route path="/" element={<Dashboard />} />
-                <Route path="/pets" element={<PetsList />} />
-                <Route path="/inventory" element={<Inventory />} />
-                <Route path="/schedules" element={<Schedule />} />
+                <Route path="/pets" element={<PetsPage />} />
+                <Route path="/inventory" element={<InventoryPage />} />
+                <Route path="/schedules" element={<SchedulesPage />} />
               </Routes>
              </React.Suspense>
           </div>

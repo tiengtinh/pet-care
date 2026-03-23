@@ -30,8 +30,12 @@ export class PetController {
 
   async getById(req: Request, res: Response) {
     try {
+      const petId = Array.isArray(req.params.id)
+        ? req.params.id[0]
+        : req.params.id;
+
       const pet = await prisma.pet.findUnique({
-        where: { id: req.params.id },
+        where: { id: petId },
         include: { inventory: true, healthSchedules: true }
       });
       if (!pet) return res.status(404).json({ error: 'Pet not found' });
