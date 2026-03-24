@@ -50,7 +50,7 @@
 | Mục | Chi tiết |
 |---|---|
 | **Bước thực hiện** | Kiểm tra Sidebar bên trái |
-| **Kết quả mong đợi** | 1. Logo "VibeCRM" gradient text hiển thị rõ kèm icon PawPrint <br> 2. Ảnh thiên nhiên ở cuối Sidebar load thành công <br> 3. Hover vào ảnh → zoom nhẹ <br> 4. Text "CARE WITH LOVE" hiển thị trên ảnh |
+| **Kết quả mong đợi** | 1. Logo "PetCare" gradient text hiển thị rõ kèm icon PawPrint <br> 2. Ảnh thiên nhiên ở cuối Sidebar load thành công <br> 3. Hover vào ảnh → zoom nhẹ <br> 4. Text "CARE WITH LOVE" hiển thị trên ảnh |
 | **Mức độ ưu tiên** | 🟡 Medium |
 
 ### 4.3. Responsive

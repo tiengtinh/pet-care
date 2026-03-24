@@ -17,7 +17,7 @@ function App() {
             <div className="w-12 h-12 bg-gradient-to-br from-warm to-warm-dark rounded-2xl flex items-center justify-center shadow-lg shadow-warm/30">
               <PawPrint className="text-white w-7 h-7" />
             </div>
-            <h1 className="text-2xl font-black bg-gradient-to-r from-warm-dark to-slate-700 bg-clip-text text-transparent tracking-tight">VibeCRM</h1>
+            <h1 className="text-2xl font-black bg-gradient-to-r from-warm-dark to-slate-700 bg-clip-text text-transparent tracking-tight">PetCare</h1>
           </div>
           
           <nav className="flex flex-col w-full px-4 gap-2 text-slate-500 font-semibold tracking-wide">

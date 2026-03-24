@@ -1,4 +1,4 @@
-# Tài liệu Test Plan: Pet Care CRM (VibeCRM)
+# Tài liệu Test Plan: PetCare
 
 **Phiên bản:** 1.0  
 **Ngày tạo:** 2026-03-18  
@@ -9,7 +9,7 @@
 ## 1. Tổng quan (Overview)
 
 ### 1.1. Mục tiêu Test Plan
-Đảm bảo toàn bộ hệ thống Pet Care CRM hoạt động đúng chức năng, ổn định, và đáp ứng các yêu cầu trong PRD, bao gồm:
+Đảm bảo toàn bộ hệ thống PetCare hoạt động đúng chức năng, ổn định, và đáp ứng các yêu cầu trong PRD, bao gồm:
 - **Backend API** (NodeJS/Express + Prisma + PostgreSQL) xử lý chính xác nghiệp vụ CRUD cho 3 domain: Pet, Inventory, Schedule.
 - **Logic nghiệp vụ** tính toán "Số ngày thức ăn còn lại" (Forecasting) trả về kết quả chính xác.
 - **Frontend** (React + Vite) hiển thị giao diện Dashboard, điều hướng (Routing), và thẩm mỹ (UI/UX).
