@@ -24,11 +24,12 @@ export class ScheduleController {
     try {
       const today = new Date();
       const nextWeek = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
-      
+      const thirtyDaysAgo = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000);
+
       const schedules = await prisma.healthSchedule.findMany({
         where: {
           nextDueDate: {
-            gte: today,
+            gte: thirtyDaysAgo,
             lte: nextWeek
           }
         },
