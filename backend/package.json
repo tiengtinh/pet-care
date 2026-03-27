@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "npx prisma db push && npx prisma generate && ts-node-dev --respawn --transpile-only src/server.ts",
+    "dev:test": "npm run dev",
     "build": "tsc",
     "start": "node dist/server.js"
   },

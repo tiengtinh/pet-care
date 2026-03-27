@@ -1,4 +1,7 @@
 repomix-output.xml
+node_modules/
+playwright-report/
+test-results/
 plans/**/*
 !plans/templates/*
 screenshots/*
