@@ -8,3 +8,5 @@ docs/research/*
 docs/session-reports/*
 claude-prime-*.zip,
 .mcp.json
+.gstack/
+.worktrees/
