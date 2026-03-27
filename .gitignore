@@ -1,0 +1,10 @@
+repomix-output.xml
+plans/**/*
+!plans/templates/*
+screenshots/*
+docs/screenshots/*
+docs/assets/*
+docs/research/*
+docs/session-reports/*
+claude-prime-*.zip,
+.mcp.json
