@@ -106,7 +106,7 @@ function PetsPage() {
             </span>
             <div className="space-y-3">
               <h1 className="text-4xl font-black tracking-tight text-slate-900">
-                Hồ sơ thú cưng đã sẵn sàng cho E2E flow
+                Quản lý hồ sơ thú cưng của bạn
               </h1>
               <p className="max-w-xl text-sm leading-7 text-slate-600 md:text-base">
                 Tạo thú cưng trực tiếp từ giao diện, theo dõi loại vật nuôi và

@@ -202,8 +202,7 @@ function SchedulesPage() {
             Danh sách Lịch Trình
           </h2>
           <p className="mt-2 text-sm text-slate-500">
-            Luồng E2E có thể thêm sự kiện mới và quay về dashboard để kiểm tra
-            mục <span className="font-semibold">Sắp tới hạn</span>.
+            Các sự kiện trong 7 ngày tới sẽ xuất hiện trên dashboard ở mục <span className="font-semibold">Sắp tới hạn</span>.
           </p>
         </div>
 

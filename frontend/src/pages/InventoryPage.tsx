@@ -165,8 +165,7 @@ function InventoryPage() {
                 Quản lý thức ăn và dự báo số ngày còn lại
               </h1>
               <p className="max-w-xl text-sm leading-7 text-slate-600 md:text-base">
-                Mỗi dòng kho hiển thị lượng thức ăn còn lại và số ngày dự báo dựa
-                trên phần backend đang tính từ <span className="font-semibold">lastUpdatedDate</span>.
+                Theo dõi lượng thức ăn còn lại và dự báo số ngày có thể dùng cho từng thú cưng.
               </p>
             </div>
           </div>

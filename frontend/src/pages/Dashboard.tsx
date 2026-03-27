@@ -76,8 +76,7 @@ function Dashboard() {
               Chào buổi sáng!
             </h2>
             <p className="text-lg font-medium leading-relaxed text-white/90 md:text-xl">
-              Theo dõi kho thức ăn và lịch trình sắp tới trực tiếp từ dữ liệu thật
-              thay vì placeholder.
+              Theo dõi kho thức ăn và lịch trình chăm sóc thú cưng của bạn.
             </p>
           </div>
           <div className="flex flex-wrap gap-3 text-sm font-semibold text-white/90">
