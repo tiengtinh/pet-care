@@ -17,6 +17,17 @@ test('shows the pets empty state when no pets exist', async ({ page }) => {
   await expect(page.getByText('Chưa có thú cưng nào.')).toBeVisible();
 });
 
+test('creates a pet from the modal and shows it in the registry', async ({ page }) => {
+  await page.goto('/pets');
+  await page.getByRole('button', { name: 'Thêm Thú Cưng' }).click();
+  await page.getByLabel('Tên thú cưng').fill('E2E Corgi');
+  await page.getByLabel('Loại').selectOption('dog');
+  await page.getByLabel('Giống loài').fill('Pembroke Welsh Corgi');
+  await page.getByLabel('Cân nặng (kg)').fill('12');
+  await page.getByRole('button', { name: 'Lưu' }).click();
+  await expect(page.getByText('E2E Corgi')).toBeVisible();
+});
+
 test('rejects testing reset without the api key', async ({ request }) => {
   const response = await request.post(`${testingApiBaseUrl}/reset`);
 
