@@ -1,0 +1,25 @@
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/bin/env python3 \"$(git rev-parse --show-toplevel)/.claude/hooks/orchestrator-directives.py\"",
+            "statusMessage": "Loading project orchestration guidance"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "afplay \"$(git rev-parse --show-toplevel)/.claude/noti.mp3\""
+          }
+        ]
+      }
+    ]
+  }
+}

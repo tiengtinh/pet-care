@@ -1,0 +1,20 @@
+# Copy commands from here into a personal rules file such as
+# `~/.codex/rules/default.rules` if you still need machine-specific approvals.
+#
+# These are examples only. The original `.claude/settings.local.json` entries
+# relied on local absolute paths, environment variables, and multi-command Bash
+# snippets, which are better kept out of shared repo policy.
+
+# Example:
+# prefix_rule(
+#     pattern = ["mkdir", "-p", "/absolute/path/inside/this/repo"],
+#     decision = "allow",
+#     justification = "Allow creating local Codex support directories for this repo.",
+# )
+
+# Example:
+# prefix_rule(
+#     pattern = ["cp", "-r", "/absolute/source/path", "/absolute/dest/path"],
+#     decision = "prompt",
+#     justification = "Copy starter assets only after explicit review.",
+# )

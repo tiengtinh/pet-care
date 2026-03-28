@@ -35,4 +35,4 @@ Use this file as the reference point for Playwright and E2E work.
 - Read `playwright.config.ts` before changing ports, server startup, or reuse behavior.
 - Reuse `tests/e2e/support/` helpers when adding new specs.
 - Keep destructive setup logic behind the backend testing API; do not seed by reaching into the database directly from Playwright tests.
-- If E2E runtime assumptions change, update this file and `CLAUDE.md` together.
+- If E2E runtime assumptions change, update this file and `AGENTS.md`; `CLAUDE.md` is only a symlink to the same source.

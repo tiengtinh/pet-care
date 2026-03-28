@@ -1,0 +1,84 @@
+# Block destructive or schema-mutating commands unless the user explicitly changes policy.
+prefix_rule(
+    pattern = ["prisma", "db", "push"],
+    decision = "forbidden",
+    justification = "Do not mutate the database schema outside an intentional migration workflow.",
+)
+
+prefix_rule(
+    pattern = ["npx", "prisma", "db", "push"],
+    decision = "forbidden",
+    justification = "Do not mutate the database schema outside an intentional migration workflow.",
+)
+
+prefix_rule(
+    pattern = ["npm", "run", "db:push"],
+    decision = "forbidden",
+    justification = "Do not mutate the database schema outside an intentional migration workflow.",
+)
+
+prefix_rule(
+    pattern = ["bun", "run", "db:push"],
+    decision = "forbidden",
+    justification = "Do not mutate the database schema outside an intentional migration workflow.",
+)
+
+prefix_rule(
+    pattern = ["pnpm", "run", "db:push"],
+    decision = "forbidden",
+    justification = "Do not mutate the database schema outside an intentional migration workflow.",
+)
+
+prefix_rule(
+    pattern = ["prisma", "migrate", "reset"],
+    decision = "forbidden",
+    justification = "Do not reset the database unless the user explicitly asks for it.",
+)
+
+prefix_rule(
+    pattern = ["git", "reset", "--hard"],
+    decision = "forbidden",
+    justification = "Do not discard worktree changes; inspect and resolve intentionally.",
+)
+
+prefix_rule(
+    pattern = ["git", "clean", "-fdx"],
+    decision = "forbidden",
+    justification = "Do not delete untracked files wholesale.",
+)
+
+prefix_rule(
+    pattern = ["git", "push", "--force"],
+    decision = "forbidden",
+    justification = "Do not rewrite shared branch history without an explicit user request.",
+)
+
+prefix_rule(
+    pattern = ["docker", "system", "prune", "-af"],
+    decision = "forbidden",
+    justification = "Do not remove Docker resources wholesale from this repo workflow.",
+)
+
+prefix_rule(
+    pattern = ["rm", "/"],
+    decision = "forbidden",
+    justification = "Destructive filesystem command blocked.",
+)
+
+prefix_rule(
+    pattern = ["rm", "-rf", "/"],
+    decision = "forbidden",
+    justification = "Destructive filesystem command blocked.",
+)
+
+prefix_rule(
+    pattern = ["rm", "~"],
+    decision = "forbidden",
+    justification = "Destructive filesystem command blocked.",
+)
+
+prefix_rule(
+    pattern = ["rm", "-rf", "~"],
+    decision = "forbidden",
+    justification = "Destructive filesystem command blocked.",
+)

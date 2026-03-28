@@ -1,0 +1,11 @@
+project_doc_fallback_filenames = ["CLAUDE.md"]
+
+[agents]
+max_threads = 6
+max_depth = 1
+
+# Optional MCP example translated from `.claude/.mcp.json.example`.
+# Enable after providing a real key or converting it to an env-based setup.
+#[mcp_servers.framelink_figma]
+#command = "npx"
+#args = ["-y", "figma-developer-mcp", "--figma-api-key=YOUR-KEY", "--stdio"]
