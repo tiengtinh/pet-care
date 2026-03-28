@@ -145,3 +145,21 @@ test('shows schedules in ascending due-date order in the dashboard list', async 
   await expect(upcomingSection.locator('article').first()).toContainText('Cho ăn');
   await expect(upcomingSection.locator('article').nth(1)).toContainText('Tẩy giun');
 });
+
+test('TC-DB-001 shows empty state in inventory section when no inventory exists', async ({
+  page,
+}) => {
+  await openPage(page, '/', /Chào buổi/);
+
+  const inventorySection = dashboardSection(page, 'Tồn kho cần chú ý');
+  await expect(inventorySection).toContainText('Chưa có dữ liệu kho thức ăn để hiển thị.');
+});
+
+test('TC-DB-002 shows empty state in upcoming schedule section when no schedules exist', async ({
+  page,
+}) => {
+  await openPage(page, '/', /Chào buổi/);
+
+  const scheduleSection = dashboardSection(page, 'Việc sắp tới hạn');
+  await expect(scheduleSection).toContainText('Chưa có lịch trình nào trong 7 ngày tới.');
+});

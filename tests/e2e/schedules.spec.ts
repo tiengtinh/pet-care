@@ -1,6 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 import {
+  buildOverdueSchedule,
   buildPet,
   buildScheduleDueTomorrow,
   buildScheduleInDays,
@@ -93,4 +94,64 @@ test('ISSUE-004 keeps the add-schedule button enabled while pets are still loadi
 
   await page.goto('/schedules');
   await expect(page.getByRole('button', { name: 'Thêm Lịch' })).toBeEnabled();
+});
+
+test('TC-E2E-003A shows schedules summary cards with correct counts', async ({
+  page,
+  request,
+}) => {
+  const pet = await seedPet(request, buildPet({ name: 'Cá Dĩa', type: 'fish' }));
+  await seedSchedule(
+    request,
+    buildScheduleInDays(pet.id, 3, {
+      eventType: 'water_change',
+      eventName: 'Thay nước',
+    }),
+  );
+  await seedSchedule(
+    request,
+    buildScheduleInDays(pet.id, 7, {
+      eventType: 'feeding',
+      eventName: 'Cho ăn',
+    }),
+  );
+
+  await openPage(page, '/schedules', 'Quản lý lịch trình chăm sóc và việc sắp tới hạn');
+
+  const totalCard = page
+    .locator('article')
+    .filter({ has: page.getByText('Tổng sự kiện') })
+    .first();
+  await expect(totalCard).toContainText('2');
+
+  const nearestCard = page
+    .locator('article')
+    .filter({ has: page.getByText('Sắp tới nhất') })
+    .first();
+  await expect(nearestCard).toContainText('Còn 3 ngày');
+
+  const statusCard = page
+    .locator('article')
+    .filter({ has: page.getByText('Trạng thái') })
+    .first();
+  await expect(statusCard).toContainText('1 thú cưng');
+});
+
+test('TC-E2E-003B shows overdue status on schedule cards in the schedules list', async ({
+  page,
+  request,
+}) => {
+  const pet = await seedPet(request, buildPet({ name: 'Cá Vàng', type: 'fish' }));
+  await seedSchedule(
+    request,
+    buildOverdueSchedule(pet.id, 3, {
+      eventType: 'water_change',
+      eventName: 'Thay nước bể',
+    }),
+  );
+
+  await openPage(page, '/schedules', 'Quản lý lịch trình chăm sóc và việc sắp tới hạn');
+
+  const scheduleCard = page.locator('main article').filter({ hasText: 'Thay nước bể' }).first();
+  await expect(scheduleCard).toContainText('Quá hạn 3 ngày');
 });

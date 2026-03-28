@@ -3,6 +3,7 @@ import { expect, test } from '@playwright/test';
 import {
   buildAgedInventory,
   buildInventory,
+  buildLowStockInventory,
   buildPet,
 } from './support/fixtures';
 import {
@@ -85,4 +86,56 @@ test('TC-E2E-003 updates inventory and resets forecasting from the new total', a
   const afterUpdateRow = inventoryRow(page, pet.name, 'Royal Canin');
   await expect(afterUpdateRow).toContainText('5000g');
   await expect(afterUpdateRow).toContainText('Còn 33 ngày');
+});
+
+test('TC-E2E-004 shows inventory summary cards with correct counts', async ({
+  page,
+  request,
+}) => {
+  const pet = await seedPet(request, buildPet({ name: 'Chó Corgi' }));
+  // Healthy inventory: 3000g total, 150g/day, 2 days old → ~18 days remaining
+  await seedInventory(
+    request,
+    buildAgedInventory(pet.id, 2, {
+      foodName: 'Royal Canin',
+      totalWeightGrams: 3000,
+      dailyPortionGrams: 150,
+    }),
+  );
+  // Low stock inventory: 18 days old → ~2 days remaining (critical)
+  await seedInventory(
+    request,
+    buildLowStockInventory(pet.id, {
+      foodName: 'Pedigree',
+    }),
+  );
+
+  await openPage(page, '/inventory', 'Quản lý thức ăn và dự báo số ngày còn lại');
+
+  const totalCard = page
+    .locator('article')
+    .filter({ has: page.getByText('Tổng kho') })
+    .first();
+  await expect(totalCard).toContainText('2');
+
+  const watchCard = page
+    .locator('article')
+    .filter({ has: page.getByText('Cần theo dõi') })
+    .first();
+  await expect(watchCard).toContainText('1');
+
+  const sourceCard = page
+    .locator('article')
+    .filter({ has: page.getByText('Nguồn dữ liệu') })
+    .first();
+  await expect(sourceCard).toContainText('1 thú cưng');
+});
+
+test('TC-E2E-005 shows the need-pet alert when no pets exist on the inventory page', async ({
+  page,
+}) => {
+  await openPage(page, '/inventory', 'Quản lý thức ăn và dự báo số ngày còn lại');
+
+  await expect(page.getByText('Cần tạo thú cưng trước')).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Thêm Kho' })).toBeDisabled();
 });

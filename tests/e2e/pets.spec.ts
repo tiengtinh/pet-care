@@ -75,6 +75,24 @@ test('ISSUE-002 keeps dev placeholder copy out of the pets page', async ({
   await expectNoDevPlaceholderCopy(page);
 });
 
+test('TC-E2E-001D shows "Chưa có xu hướng" when no single pet type dominates', async ({
+  page,
+  request,
+}) => {
+  await seedPets(request, [
+    buildPet({ name: 'Milo', type: 'dog' }),
+    buildPet({ name: 'Mimi', type: 'cat' }),
+  ]);
+
+  await openPage(page, '/pets', 'Quản lý hồ sơ thú cưng của bạn');
+
+  const popularTypeCard = page
+    .locator('article')
+    .filter({ has: page.getByText('Loại phổ biến') })
+    .first();
+  await expect(popularTypeCard).toContainText('Chưa có xu hướng');
+});
+
 test('rejects testing reset without the api key', async ({ request }) => {
   const response = await request.post(`${testingApiBaseUrl}/reset`);
 
