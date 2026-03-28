@@ -1,31 +1,78 @@
 import { expect, test } from '@playwright/test';
 
-const testingApiKey = 'e2e-testing-key';
-const testingApiBaseUrl = 'http://127.0.0.1:3300/api/testing';
+import { buildPet } from './support/fixtures';
+import {
+  createPetFromModal,
+  expectNoDevPlaceholderCopy,
+  openPage,
+} from './support/page-helpers';
+import {
+  resetTestData,
+  seedPets,
+  testingApiBaseUrl,
+} from './support/seed';
 
 test.beforeEach(async ({ request }) => {
-  const response = await request.post(`${testingApiBaseUrl}/reset`, {
-    headers: {
-      'x-testing-api-key': testingApiKey,
-    },
-  });
-  expect(response.ok()).toBeTruthy();
+  await resetTestData(request);
 });
 
-test('shows the pets empty state when no pets exist', async ({ page }) => {
-  await page.goto('/pets');
+test('TC-E2E-001A shows the pets empty state when no pets exist', async ({
+  page,
+}) => {
+  await openPage(page, '/pets', 'Quản lý hồ sơ thú cưng của bạn');
   await expect(page.getByText('Chưa có thú cưng nào.')).toBeVisible();
+
+  const totalRegistryCard = page
+    .locator('article')
+    .filter({ has: page.getByText('Tổng hồ sơ') })
+    .first();
+  await expect(totalRegistryCard).toContainText('0');
 });
 
-test('creates a pet from the modal and shows it in the registry', async ({ page }) => {
-  await page.goto('/pets');
-  await page.getByRole('button', { name: 'Thêm Thú Cưng' }).click();
-  await page.getByLabel('Tên thú cưng').fill('E2E Corgi');
-  await page.getByLabel('Loại').selectOption('dog');
-  await page.getByLabel('Giống loài').fill('Pembroke Welsh Corgi');
-  await page.getByLabel('Cân nặng (kg)').fill('12');
-  await page.getByRole('button', { name: 'Lưu' }).click();
-  await expect(page.getByText('E2E Corgi')).toBeVisible();
+test('TC-E2E-001B creates a pet from the modal and shows it in the registry', async ({
+  page,
+}) => {
+  const pet = buildPet();
+
+  await openPage(page, '/pets', 'Quản lý hồ sơ thú cưng của bạn');
+  await createPetFromModal(page, pet);
+
+  await expect(page.getByText(pet.name)).toBeVisible();
+  await expect(page.getByText('Chó')).toBeVisible();
+  await expect(page.getByText('Pembroke Welsh Corgi')).toBeVisible();
+  await expect(page.getByText('12 kg')).toBeVisible();
+  await expect(page.getByText(/Tạo ngày/)).toBeVisible();
+
+  const totalRegistryCard = page
+    .locator('article')
+    .filter({ has: page.getByText('Tổng hồ sơ') })
+    .first();
+  await expect(totalRegistryCard).toContainText('1');
+});
+
+test('ISSUE-003 shows the most common pet type in the summary card', async ({
+  page,
+  request,
+}) => {
+  await seedPets(request, [
+    buildPet({ name: 'Milo', type: 'dog' }),
+    buildPet({ name: 'Mimi', type: 'cat' }),
+    buildPet({ name: 'Mochi', type: 'cat' }),
+  ]);
+
+  await openPage(page, '/pets', 'Quản lý hồ sơ thú cưng của bạn');
+  const popularTypeCard = page
+    .locator('article')
+    .filter({ has: page.getByText('Loại phổ biến') })
+    .first();
+  await expect(popularTypeCard).toContainText('Mèo');
+});
+
+test('ISSUE-002 keeps dev placeholder copy out of the pets page', async ({
+  page,
+}) => {
+  await openPage(page, '/pets', 'Quản lý hồ sơ thú cưng của bạn');
+  await expectNoDevPlaceholderCopy(page);
 });
 
 test('rejects testing reset without the api key', async ({ request }) => {
