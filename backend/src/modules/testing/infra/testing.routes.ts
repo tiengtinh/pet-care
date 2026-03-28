@@ -13,6 +13,10 @@ const isLocalRequest = (req: Request) => {
   );
 };
 
+testingRoutes.get('/health', (_req: Request, res: Response) => {
+  res.json({ status: 'ok', testingApi: true });
+});
+
 testingRoutes.use((req: Request, res: Response, next: NextFunction) => {
   const expectedApiKey = process.env.TESTING_API_KEY;
   const providedApiKey = req.header('x-testing-api-key');
