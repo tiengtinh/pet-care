@@ -43,12 +43,13 @@ test('TC-E2E-002 creates a schedule and shows it in the schedules page and dashb
     nextDueDate: schedule.nextDueDate,
   });
 
-  await expect(page.getByText('Thay nước')).toBeVisible();
-  await expect(page.getByText('Ngày mai')).toBeVisible();
+  const scheduleCard = page.locator('main article').filter({ hasText: pet.name }).first();
+  await expect(scheduleCard.getByRole('heading', { name: 'Thay nước' })).toBeVisible();
+  await expect(scheduleCard.getByText('Ngày mai')).toBeVisible();
 
   await page.goto('/');
   await expect(page.getByText(/Thay nước \(Cá Neon\)/)).toBeVisible();
-  await expect(page.getByText('Ngày mai')).toBeVisible();
+  await expect(page.getByText(/^Ngày mai$/)).toBeVisible();
 });
 
 test('orders schedule cards by the nearest due date', async ({

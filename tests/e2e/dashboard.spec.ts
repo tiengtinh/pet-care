@@ -39,7 +39,7 @@ test('ISSUE-001 shows overdue schedules on the dashboard upcoming card', async (
 
   await openPage(page, '/', /Chào buổi/);
   await expect(page.getByText(/Thay nước bể \(Bể Cá\)/)).toBeVisible();
-  await expect(page.getByText('Quá hạn 8 ngày')).toBeVisible();
+  await expect(page.getByText(/^Quá hạn 8 ngày$/)).toBeVisible();
 });
 
 test('renders aggregated dashboard counts and featured sections from seeded data', async ({

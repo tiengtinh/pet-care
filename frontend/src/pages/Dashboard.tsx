@@ -11,6 +11,20 @@ import {
 } from '../lib/formatting';
 import type { HealthSchedule, InventoryForecast, Pet } from '../lib/types';
 
+function getGreeting(now: Date) {
+  const hour = now.getHours();
+
+  if (hour >= 18) {
+    return 'Chào buổi tối!';
+  }
+
+  if (hour >= 12) {
+    return 'Chào buổi chiều!';
+  }
+
+  return 'Chào buổi sáng!';
+}
+
 function Dashboard() {
   const [pets, setPets] = useState<Pet[]>([]);
   const [inventories, setInventories] = useState<InventoryForecast[]>([]);
@@ -59,6 +73,7 @@ function Dashboard() {
   const featuredInventory = inventories[0];
   const featuredSchedule = upcomingSchedules[0];
   const lowStockCount = inventories.filter((item) => item.remainingDays <= 7).length;
+  const greeting = getGreeting(new Date());
 
   return (
     <div className="mx-auto max-w-7xl space-y-10 p-8 md:p-12">
@@ -73,7 +88,7 @@ function Dashboard() {
         <div className="relative flex h-full max-w-3xl flex-col justify-center gap-5 px-10 text-white md:px-16">
           <div>
             <h2 className="mb-4 text-4xl font-black tracking-tight md:text-5xl">
-              Chào buổi sáng!
+              {greeting}
             </h2>
             <p className="text-lg font-medium leading-relaxed text-white/90 md:text-xl">
               Theo dõi kho thức ăn và lịch trình chăm sóc thú cưng của bạn.

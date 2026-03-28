@@ -27,6 +27,30 @@ const initialFormState: PetFormState = {
   dob: '',
 };
 
+function getMostCommonPetType(pets: Pet[]) {
+  const counts = new Map<string, number>();
+
+  for (const pet of pets) {
+    counts.set(pet.type, (counts.get(pet.type) ?? 0) + 1);
+  }
+
+  let mostCommonType: string | null = null;
+  let highestCount = 0;
+
+  for (const [type, count] of counts.entries()) {
+    if (count > highestCount) {
+      mostCommonType = type;
+      highestCount = count;
+    }
+  }
+
+  if (!mostCommonType || highestCount < 2) {
+    return null;
+  }
+
+  return getPetTypeLabel(mostCommonType);
+}
+
 function PetsPage() {
   const [pets, setPets] = useState<Pet[]>([]);
   const [loading, setLoading] = useState(true);
@@ -34,6 +58,7 @@ function PetsPage() {
   const [error, setError] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [form, setForm] = useState<PetFormState>(initialFormState);
+  const popularTypeLabel = getMostCommonPetType(pets);
 
   useEffect(() => {
     void loadPets();
@@ -147,10 +172,10 @@ function PetsPage() {
             Loại phổ biến
           </p>
           <p className="mt-4 text-2xl font-black text-slate-900">
-            {pets[0] ? getPetTypeLabel(pets[0].type) : 'Chưa có dữ liệu'}
+            {popularTypeLabel ?? (pets.length === 0 ? 'Chưa có dữ liệu' : 'Chưa có xu hướng')}
           </p>
           <p className="mt-2 text-sm text-slate-500">
-            Danh sách được sắp theo thời gian tạo mới nhất.
+            Cần ít nhất hai hồ sơ cùng loại để xác định nhóm nổi bật.
           </p>
         </article>
 
@@ -162,7 +187,7 @@ function PetsPage() {
             {loading ? 'Đang đồng bộ...' : 'Hoạt động bình thường'}
           </p>
           <p className="mt-2 text-sm text-slate-500">
-            Form tạo và danh sách hiển thị đã thay thế placeholder.
+            Biểu mẫu tạo và danh sách đang dùng dữ liệu thật từ hệ thống.
           </p>
         </article>
       </section>

@@ -58,6 +58,7 @@ export async function createPetFromModal(page: Page, pet: PetSeed) {
   }
 
   await page.getByRole('button', { name: 'Lưu' }).click();
+  await expect(page.getByRole('heading', { name: 'Thêm Thú Cưng' })).toHaveCount(0);
 }
 
 export async function createInventoryFromModal(
@@ -76,6 +77,7 @@ export async function createInventoryFromModal(
     .getByLabel('Khẩu phần ăn hàng ngày (g)')
     .fill(String(input.dailyPortionGrams));
   await page.getByRole('button', { name: 'Lưu' }).click();
+  await expect(page.getByRole('heading', { name: 'Thêm Kho' })).toHaveCount(0);
 }
 
 export async function updateInventoryFromTable(
@@ -109,6 +111,7 @@ export async function updateInventoryFromTable(
   }
 
   await page.getByRole('button', { name: 'Lưu' }).click();
+  await expect(page.getByRole('heading', { name: 'Cập Nhật Kho' })).toHaveCount(0);
 }
 
 export async function createScheduleFromModal(
@@ -122,6 +125,7 @@ export async function createScheduleFromModal(
   await page.getByLabel('Loại sự kiện').selectOption(input.eventType);
   await page.getByLabel('Ngày hẹn').fill(input.nextDueDate);
   await page.getByRole('button', { name: 'Lưu' }).click();
+  await expect(page.getByRole('heading', { name: 'Thêm Lịch' })).toHaveCount(0);
 }
 
 export function inventoryTable(page: Page) {

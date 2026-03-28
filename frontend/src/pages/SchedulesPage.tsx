@@ -135,8 +135,8 @@ function SchedulesPage() {
                 Quản lý lịch trình chăm sóc và việc sắp tới hạn
               </h1>
               <p className="max-w-xl text-sm leading-7 text-slate-600 md:text-base">
-                Tạo sự kiện mới cho từng thú cưng để dashboard có thể hiển thị
-                các công việc sắp tới như thay nước, cho ăn hoặc khám bệnh.
+                Tạo sự kiện chăm sóc cho từng thú cưng để dashboard hiển thị
+                các việc cần theo dõi trong những ngày tới.
               </p>
             </div>
           </div>

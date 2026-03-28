@@ -10,24 +10,25 @@ const SchedulesPage = React.lazy(() => import('./pages/SchedulesPage'));
 function App() {
   return (
     <Router>
-      <div className="flex bg-[#FDFBF7] min-h-screen text-slate-800 font-sans">
+      <div className="min-h-screen bg-[#FDFBF7] text-slate-800 font-sans">
+        <div className="flex min-h-screen flex-col md:flex-row">
         {/* Sidebar */}
-        <aside className="w-64 bg-white/80 shadow-[4px_0_24px_rgba(0,0,0,0.02)] flex flex-col items-center py-8 gap-6 z-20 backdrop-blur-xl sticky top-0 h-screen overflow-y-auto border-r border-orange-50/50">
-          <div className="flex items-center gap-3 w-full px-8 mb-6">
+        <aside className="sticky top-0 z-20 flex w-full shrink-0 flex-col gap-4 border-b border-orange-50/50 bg-white/90 px-4 py-5 shadow-[0_10px_30px_rgba(0,0,0,0.04)] backdrop-blur-xl md:h-screen md:w-64 md:items-center md:gap-6 md:overflow-y-auto md:border-b-0 md:border-r md:px-0 md:py-8 md:shadow-[4px_0_24px_rgba(0,0,0,0.02)]">
+          <div className="flex w-full items-center gap-3 md:mb-6 md:px-8">
             <div className="w-12 h-12 bg-gradient-to-br from-warm to-warm-dark rounded-2xl flex items-center justify-center shadow-lg shadow-warm/30">
               <PawPrint className="text-white w-7 h-7" />
             </div>
             <h1 className="text-2xl font-black bg-gradient-to-r from-warm-dark to-slate-700 bg-clip-text text-transparent tracking-tight">PetCare</h1>
           </div>
           
-          <nav className="flex flex-col w-full px-4 gap-2 text-slate-500 font-semibold tracking-wide">
+          <nav className="flex w-full gap-2 overflow-x-auto pb-1 text-slate-500 font-semibold tracking-wide md:flex-col md:px-4 md:pb-0">
             <NavItem to="/" icon={<Home size={20} />} label="Dashboard" />
             <NavItem to="/pets" icon={<PawPrint size={20} />} label="Thú Cưng" />
             <NavItem to="/inventory" icon={<PackageOpen size={20} />} label="Kho Thức Ăn" />
             <NavItem to="/schedules" icon={<CalendarClock size={20} />} label="Lịch Trình" />
           </nav>
 
-          <div className="mt-auto px-6 w-full opacity-80 hover:opacity-100 transition-opacity">
+          <div className="hidden w-full px-6 opacity-80 transition-opacity hover:opacity-100 md:mt-auto md:block">
             <div className="relative rounded-2xl overflow-hidden shadow-sm group">
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10" />
               <img 
@@ -43,7 +44,7 @@ function App() {
         </aside>
 
         {/* Main Content */}
-        <main className="flex-1 w-full overflow-hidden relative">
+        <main className="relative w-full flex-1 overflow-hidden">
           <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-nature/20 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
           <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-warm/10 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/4 pointer-events-none"></div>
           
@@ -58,6 +59,7 @@ function App() {
              </React.Suspense>
           </div>
         </main>
+        </div>
       </div>
     </Router>
   );
@@ -70,7 +72,7 @@ function NavItem({ to, icon, label }: { to: string; icon: React.ReactNode; label
   return (
     <Link 
       to={to} 
-      className={`flex items-center gap-3 px-4 py-3.5 rounded-2xl transition-all duration-300 group
+      className={`flex min-w-fit items-center gap-3 rounded-2xl px-4 py-3.5 transition-all duration-300 group md:min-w-0
         ${isActive ? 'bg-warm text-white shadow-md shadow-warm/20' : 'hover:bg-orange-50/80 hover:text-warm-dark'}`}
     >
       <div className={`transition-transform duration-300 ${isActive ? 'scale-110' : 'group-hover:scale-110 group-hover:-rotate-3'}`}>

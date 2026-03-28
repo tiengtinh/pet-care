@@ -20,7 +20,7 @@ test('TC-UI-001 loads the dashboard by default with the hero and three summary c
 
   await assertActiveNavItem(page, 'Dashboard');
   await expect(page.getByRole('heading', { name: 'Cảnh báo khẩn cấp' })).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Sắp tới hạn' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: /^Sắp tới hạn$/ })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Lịch Y tế' })).toBeVisible();
 });
 
@@ -59,7 +59,7 @@ test('TC-UI-005 shows the warning-card labels on the dashboard', async ({
   await openPage(page, '/', /Chào buổi/);
 
   await expect(page.getByRole('heading', { name: 'Cảnh báo khẩn cấp' })).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Sắp tới hạn' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: /^Sắp tới hạn$/ })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Lịch Y tế' })).toBeVisible();
 });
 
@@ -70,7 +70,7 @@ test('TC-UI-006 shows the sidebar branding and care image', async ({
 
   await expect(page.getByText('PetCare')).toBeVisible();
   await expect(page.getByText('CARE WITH LOVE')).toBeVisible();
-  await expect(page.getByAltText('Nature')).toBeVisible();
+  await expect(page.getByAltText(/^Nature$/)).toBeVisible();
 });
 
 test('TC-UI-007 stacks dashboard cards vertically on a mobile viewport', async ({
@@ -81,7 +81,7 @@ test('TC-UI-007 stacks dashboard cards vertically on a mobile viewport', async (
 
   const [urgentCard, upcomingCard, medicalCard] = await headingPositions(
     page.getByRole('heading', { name: 'Cảnh báo khẩn cấp' }),
-    page.getByRole('heading', { name: 'Sắp tới hạn' }),
+    page.getByRole('heading', { name: /^Sắp tới hạn$/ }),
     page.getByRole('heading', { name: 'Lịch Y tế' }),
   );
 
