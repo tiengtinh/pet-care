@@ -14,8 +14,11 @@ const isLocalRequest = (req: Request) => {
 };
 
 testingRoutes.use((req: Request, res: Response, next: NextFunction) => {
-  if (!isLocalRequest(req)) {
-    return res.status(403).json({ error: 'Testing API is local-only' });
+  const expectedApiKey = process.env.TESTING_API_KEY;
+  const providedApiKey = req.header('x-testing-api-key');
+
+  if (!expectedApiKey || providedApiKey !== expectedApiKey || !isLocalRequest(req)) {
+    return res.status(403).json({ error: 'Testing API is locked down' });
   }
 
   next();

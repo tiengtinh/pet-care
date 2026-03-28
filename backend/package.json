@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "npx prisma db push && npx prisma generate && ts-node-dev --respawn --transpile-only src/server.ts",
-    "dev:test:backend": "ENABLE_TESTING_API=true DATABASE_URL=postgresql://user:password@127.0.0.1:5432/pet_crm?schema=e2e PORT=3000 npm run dev",
+    "dev:test:backend": "ENABLE_TESTING_API=true TESTING_API_KEY=e2e-testing-key DATABASE_URL=postgresql://user:password@127.0.0.1:5432/pet_crm?schema=e2e PORT=3000 npm run dev",
     "dev:test": "npm run dev:test:backend",
     "build": "tsc",
     "start": "node dist/server.js"
