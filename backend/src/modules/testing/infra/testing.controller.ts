@@ -4,9 +4,11 @@ import { prisma } from '../../../server';
 export class TestingController {
   async reset(_req: Request, res: Response) {
     try {
-      await prisma.healthSchedule.deleteMany();
-      await prisma.inventory.deleteMany();
-      await prisma.pet.deleteMany();
+      await prisma.$transaction([
+        prisma.healthSchedule.deleteMany(),
+        prisma.inventory.deleteMany(),
+        prisma.pet.deleteMany(),
+      ]);
 
       res.json({ ok: true });
     } catch (error) {
