@@ -206,6 +206,46 @@ npm run dev
 
 The frontend runs on `http://localhost:5173`.
 
+## Run E2E Tests
+
+The Playwright suite runs against its own isolated runtime and does not reuse the normal dev servers on `3000` and `5173`.
+
+Before running E2E:
+
+- Install dependencies in the repo root, `backend/`, and `frontend/`
+- Make sure PostgreSQL is available on `localhost:5432`
+- If you use Docker, starting `db` is enough: `docker compose up -d db`
+
+The E2E harness will start:
+
+- Backend test server on `http://127.0.0.1:3300`
+- Frontend test server on `http://127.0.0.1:4173`
+- PostgreSQL schema `e2e` inside the `pet_crm` database
+
+Install the Playwright browser once if needed:
+
+```bash
+npx playwright install chromium
+```
+
+Run the suite from the repository root:
+
+```bash
+npm run test:e2e
+```
+
+To open the Playwright UI runner:
+
+```bash
+npm run test:e2e:ui
+```
+
+Notes:
+
+- The backend test entrypoint is `npm run dev:test:backend --prefix backend`
+- The frontend test server is started automatically by `playwright.config.ts`
+- The backend testing API is mounted only in test mode at `http://127.0.0.1:3300/api/testing`
+
 ## Build Commands
 
 ### Backend
